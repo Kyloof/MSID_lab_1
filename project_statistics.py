@@ -11,7 +11,7 @@ def generate_statistic_from_file_path(file_path, output_path):
         missing_values = df[attr].isnull().sum()
 
         if df[attr].dtype == 'int64' or df[attr].dtype == 'float64':
-            stats = df[attr].describe(percentiles=[0.05, 0.95]).loc[['count','mean','std','min','max','5%','95%']]
+            stats = df[attr].describe(percentiles=[0.05, 0.95])
             numeric_stats[attr] = stats.to_dict()
             numeric_stats[attr]["missing_values"] = missing_values
             
@@ -32,4 +32,4 @@ def generate_statistic_from_file_path(file_path, output_path):
     numeric_df.to_csv(output_path.replace('.csv', '_numeric.csv'), index=False)
     categorical_df.to_csv(output_path.replace('.csv','_categorical.csv'), index=False)
 
-generate_statistic_from_file_path("players_22.csv", "players_output.csv")
+generate_statistic_from_file_path("UltimateClassicRock.csv", "UltimateClassicRockOutput.csv")
