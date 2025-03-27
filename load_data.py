@@ -1,8 +1,12 @@
 import pandas as pd
+from utils import convert_duration_to_minutes
 def load_data(file_path):
     try:
         if file_path.endswith('.csv'):
-            return pd.read_csv(file_path, low_memory=False)
+            
+            df = pd.read_csv(file_path, low_memory=False)
+            df['Duration'] = df['Duration'].apply(convert_duration_to_minutes)
+            return df
         elif file_path.endswith('.xlsx') or file_path.endswith('.xls'):
             return pd.read_excel(file_path)
         else:

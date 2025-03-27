@@ -5,19 +5,33 @@ import matplotlib.pyplot as plt
 # Queue to store plot references
 plot_queue = []
 
+import seaborn as sns
+import matplotlib.pyplot as plt
+
 def create_boxplot(database, x_axis, y_axis, title):
-    plot = sns.catplot(data=database, x=x_axis, y=y_axis, kind="box", height=9, aspect=2)
-    plot.set_titles(title)
-    plot.set_axis_labels(x_axis, y_axis)
-    plot.xticks(rotation=45, horizontalalignment='right', fontweight='light', fontsize='x-large')
-    plot_queue.append(plot)
+    plot = sns.catplot(data=database, x=x_axis, y=y_axis, kind="box", height=7, aspect=2)
+
+    ax = plot.ax
+
+    ax.set_title(title)
+    ax.set_xlabel(x_axis)
+    ax.set_ylabel(y_axis)
+
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right', fontweight='light', fontsize='x-large')
+    plot_queue.append(plot.figure)
+
+    return plot.figure 
 
 def create_violinplot(database, x_axis, y_axis, title):
     plot = sns.catplot(data=database, x=x_axis, y=y_axis, kind="violin", height=9, aspect=2)
-    plot.set_titles(title)
-    plot.set_axis_labels(x_axis, y_axis)
-    plot_queue.append(plot)
+    ax = plot.ax
+    ax.set_title(title)
+    ax.set_xlabel(x_axis)
+    ax.set_ylabel(y_axis)
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right', fontweight='light', fontsize='x-large')
+    plot_queue.append(plot.figure)
 
+    return plot.figure 
 def create_displot(database, x, title, hue=None):
     if hue is None:
         plot = sns.displot(database, x=x)
@@ -74,7 +88,7 @@ def create_heatmap(df, columns):
 
 def create_regplot(data, x, y):
     plot = sns.regplot(x=x, y=y, data=data)
-    plot_queue.append(plt)
+    plot_queue.append(plot)
 
 def display_plots():
     for plot in plot_queue:

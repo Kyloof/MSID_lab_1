@@ -1,9 +1,6 @@
 import pandas as pd
 from load_data import load_data
-
-def convert_duration_to_minutes(duration):
-    minutes, seconds = map(int, duration.split(':'))
-    return minutes + seconds / 60
+from utils import convert_duration_to_minutes
 
 def generate_statistic_from_file_path(file_path, output_path):
     df = load_data(file_path)
@@ -18,7 +15,6 @@ def generate_statistic_from_file_path(file_path, output_path):
         "Valence", "Popularity", "Tempo"
     ]
     
-    df['Duration'] = df['Duration'].apply(convert_duration_to_minutes)
 
     numeric_stats = {}
     categorical_stats = []
@@ -48,7 +44,8 @@ def generate_statistic_from_file_path(file_path, output_path):
     numeric_df.to_csv(output_path.replace('.csv', '_numeric.csv'), index=False)
     categorical_df.to_csv(output_path.replace('.csv','_categorical.csv'), index=False)
 
-generate_statistic_from_file_path("UltimateClassicRock.csv", "UltimateClassicRock.csv")
+    return numeric_df, categorical_df
+
 
 
 def get_numeric_values(df):
