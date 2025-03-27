@@ -11,5 +11,3 @@ def load_data(file_path):
         print(f"Błąd podczas wczytywania danych: {e}")
         return None
     
-
-print(load_data("players_22.csv"))
