@@ -2,44 +2,33 @@ import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Queue to store plot references
-plot_queue = []
-
-import seaborn as sns
-import matplotlib.pyplot as plt
-
 def create_boxplot(database, x_axis, y_axis, title):
     plot = sns.catplot(data=database, x=x_axis, y=y_axis, kind="box", height=7, aspect=2)
-
     ax = plot.ax
-
     ax.set_title(title)
     ax.set_xlabel(x_axis)
     ax.set_ylabel(y_axis)
+    ax.tick_params(axis="x", rotation=45)  
+    plt.show()
 
-    ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right', fontweight='light', fontsize='x-large')
-    plot_queue.append(plot.figure)
-
-    return plot.figure 
 
 def create_violinplot(database, x_axis, y_axis, title):
-    plot = sns.catplot(data=database, x=x_axis, y=y_axis, kind="violin", height=9, aspect=2)
+    plot = sns.catplot(data=database, x=x_axis, y=y_axis, kind="violin", height=7, aspect=2)
     ax = plot.ax
     ax.set_title(title)
     ax.set_xlabel(x_axis)
     ax.set_ylabel(y_axis)
-    ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right', fontweight='light', fontsize='x-large')
-    plot_queue.append(plot.figure)
-
-    return plot.figure 
+    plt.show()
+    
 def create_displot(database, x, title, hue=None):
     if hue is None:
-        plot = sns.displot(database, x=x)
+        plot = sns.displot(database, x=x, multiple="dodge",  height=7, aspect=2)
     else:
-        plot = sns.displot(database, x=x, hue=hue)
-    plot.set_titles(title)
-    plot.set_axis_labels(x)
-    plot_queue.append(plot)
+        plot = sns.displot(database, x=x, hue=hue, height=7, aspect=2)
+    ax = plot.ax
+    ax.set_title(title)
+    ax.set_xlabel(x)
+    plt.show()
 
 def create_plot_errorbars(df):
     attributes = df.index
@@ -77,21 +66,25 @@ def create_plot_errorbars(df):
 
     plt.tight_layout()
     plt.subplots_adjust(hspace=0.5, wspace=0.3)
-    plot_queue.append(plt)
+    plt.show()
 
 def create_heatmap(df, columns):
     correlation_matrix = df[columns].corr()
-    plt.figure(figsize=(12, 8)) 
-    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f', cbar=True, square=True)
-    plt.title('Correlation Heatmap')
-    plot_queue.append(plt)
+    
+    plt.figure(figsize=(10, 7)) 
+    ax = sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f', cbar=True, square=True)
+    
+    ax.set_title("Heatmap of Values")
+    plt.show()
 
-def create_regplot(data, x, y):
-    plot = sns.regplot(x=x, y=y, data=data)
-    plot_queue.append(plot)
 
-def display_plots():
-    for plot in plot_queue:
-        plot.show()
 
-    plot_queue.clear()
+
+def create_regplot(data, x, y, title):
+    plt.figure(figsize=(14, 7)) 
+    ax = sns.regplot(x=x, y=y, data=data)
+    ax.set_title(title)
+    ax.set_xlabel(x)
+    ax.set_ylabel(y)
+    plt.show()
+

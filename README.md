@@ -8,7 +8,5 @@ This project is originally written in [Python 3.13.2](https://www.python.org/dow
 Use the package manager [pip](https://pip.pypa.io/en/stable/)
 
 ```bash
-pip install matplotlib
-pip install pandas
-pip install seaborn
+pip install -r requirements.txt
 ```
