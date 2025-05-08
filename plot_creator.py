@@ -1,5 +1,7 @@
 import seaborn as sns
 import pandas as pd
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
 def create_boxplot(database, x_axis, y_axis, title):

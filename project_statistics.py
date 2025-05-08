@@ -5,9 +5,9 @@ from utils import convert_duration_to_minutes
 def generate_statistic_from_file_path(file_path, output_path):
     df = load_data(file_path)
 
-    categorical_columns = ["Track", "Artist", "Album", "Year", "Mode", "Time_Signature"]
+    categorical_columns = ["Track", "Artist", "Album", "Year", "Mode", "Time_Signature", "Key"]
     numeric_columns = [
-        "Duration", "Danceability", "Energy", "Key", "Loudness", 
+        "Duration", "Danceability", "Energy", "Loudness", 
         "Speechiness", "Acousticness", "Instrumentalness", "Liveness", 
         "Valence", "Popularity", "Tempo"
     ]
