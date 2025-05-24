@@ -1,5 +1,5 @@
 import pandas as pd
-from utils import convert_duration_to_minutes
+from utils.utils import convert_duration_to_minutes
 def load_data(file_path):
     try:
         if file_path.endswith('.csv'):

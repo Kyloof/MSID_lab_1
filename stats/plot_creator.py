@@ -2,7 +2,7 @@ import seaborn as sns
 import pandas as pd
 import matplotlib
 matplotlib.use('TkAgg')
-import matplotlib.pyplot as plt
+
 
 def create_boxplot(database, x_axis, y_axis, title):
     plot = sns.catplot(data=database, x=x_axis, y=y_axis, kind="box", height=7, aspect=2)
@@ -31,6 +31,7 @@ def create_displot(database, x, title, hue=None):
     ax.set_title(title)
     ax.set_xlabel(x)
     plt.show()
+import matplotlib.pyplot as plt
 
 def create_plot_errorbars(df):
     attributes = df.index
@@ -41,7 +42,7 @@ def create_plot_errorbars(df):
     num_columns = 3 
     num_rows = (num_plots // num_columns) + (num_plots % num_columns > 0)
     
-    _, axes = plt.subplots(
+    fig, axes = plt.subplots(
         nrows=num_rows, ncols=num_columns, figsize=(15, num_rows * 4), sharex=False
     )
 
@@ -55,20 +56,27 @@ def create_plot_errorbars(df):
     
     for i, attr in enumerate(attributes):
         axes[i].errorbar(
-            x=attr,
+            x=0,  # single x value for this attribute
             y=means[attr],
             yerr=std_devs[attr],
             fmt="o",
             capsize=5,
             color="blue",
         )
+        axes[i].set_xticks([0])
+        axes[i].set_xticklabels([attr])
         axes[i].set_ylabel("Mean Value")
-        axes[i].set_title(f"{numeric_columns[attr]} (mean ± std)")
+        axes[i].set_title(f"{numeric_columns[i]} (mean ± std)")
         axes[i].grid(True)
+
+    # Hide unused subplots if any
+    for j in range(num_plots, len(axes)):
+        axes[j].axis('off')
 
     plt.tight_layout()
     plt.subplots_adjust(hspace=0.5, wspace=0.3)
     plt.show()
+
 
 def create_heatmap(df, columns):
     correlation_matrix = df[columns].corr()

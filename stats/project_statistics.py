@@ -1,6 +1,6 @@
 import pandas as pd
-from load_data import load_data
-from utils import convert_duration_to_minutes
+from utils.load_data import load_data
+from utils.utils import convert_duration_to_minutes
 
 def generate_statistic_from_file_path(file_path, output_path):
     df = load_data(file_path)
