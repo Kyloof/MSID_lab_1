@@ -1,4 +1,4 @@
-import numpb as np
+import numpy as np
 
 def compute_cost(A, b, theta):
     m = len(b)
